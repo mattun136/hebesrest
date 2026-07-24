@@ -18,12 +18,12 @@ export default function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-brand-line bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <a
-          href="#top"
+        <Link
+          href="/#top"
           className="font-serif text-lg tracking-[0.2em] text-brand-green-dark"
         >
           HEBEREST
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
           {navLinks.map((link) => (
