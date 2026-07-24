@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --experimental-strip-types --test src/**/*.test.ts"
+    "test": "node --test src/**/*.test.ts"
   },
   "dependencies": {
     "@vercel/firewall": "^1.2.1",
