@@ -19,11 +19,11 @@ const siteUrl = "https://hebesu-brand.example.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "へべす | 宮崎県産 高級へべすブランド",
-    template: "%s | へべす",
+    default: "HEBEREST（ヘベレスト）| へべすでひとやすみ。宮崎県産 高級へべすブランド",
+    template: "%s | HEBEREST",
   },
   description:
-    "宮崎県が誇る香酸柑橘「へべす」。豊かな香りと爽やかな酸味、栄養価の高さを未来へつなぐ生産者直送のブランドサイト。",
+    "「へべすでひとやすみ。」宮崎県が誇る香酸柑橘「へべす」。豊かな香りと爽やかな酸味、栄養価の高さを未来へつなぐ生産者直送のブランドサイト。",
   keywords: [
     "へべす",
     "宮崎県",
@@ -31,19 +31,21 @@ export const metadata: Metadata = {
     "香酸柑橘",
     "産地直送",
     "高級フルーツ",
+    "HEBEREST",
   ],
   openGraph: {
-    title: "へべす | 宮崎県産 高級へべすブランド",
-    description: "へべすの価値を、未来へ。宮崎県産の香酸柑橘「へべす」をお届けします。",
+    title: "HEBEREST（ヘベレスト）| へべすでひとやすみ。",
+    description:
+      "へべすでひとやすみ。——へべすの価値を、未来へ。宮崎県産の香酸柑橘「へべす」をお届けします。",
     url: siteUrl,
-    siteName: "へべす",
+    siteName: "HEBEREST",
     locale: "ja_JP",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "へべす | 宮崎県産 高級へべすブランド",
-    description: "へべすの価値を、未来へ。",
+    title: "HEBEREST（ヘベレスト）| へべすでひとやすみ。",
+    description: "へべすでひとやすみ。",
   },
 };
 
