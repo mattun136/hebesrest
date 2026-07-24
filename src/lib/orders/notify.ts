@@ -78,15 +78,22 @@ class ResendOrderNotifier implements OrderNotifier {
     const resend = new Resend(apiKey);
 
     try {
-      await resend.emails.send({
+      const result = await resend.emails.send({
         from,
         to: order.customer.email,
         subject: "【HEBEREST】ご注文ありがとうございます",
         text: buildCustomerEmailText(order),
       });
-    } catch {
+      if (result.error) {
+        console.error("[orders] failed to send customer confirmation email", {
+          orderId: order.orderId,
+          error: result.error,
+        });
+      }
+    } catch (error) {
       console.error("[orders] failed to send customer confirmation email", {
         orderId: order.orderId,
+        error,
       });
     }
 
@@ -98,15 +105,22 @@ class ResendOrderNotifier implements OrderNotifier {
     }
 
     try {
-      await resend.emails.send({
+      const result = await resend.emails.send({
         from,
         to: adminTo,
         subject: "【新規注文】",
         text: buildAdminEmailText(order),
       });
-    } catch {
+      if (result.error) {
+        console.error("[orders] failed to send admin notification email", {
+          orderId: order.orderId,
+          error: result.error,
+        });
+      }
+    } catch (error) {
       console.error("[orders] failed to send admin notification email", {
         orderId: order.orderId,
+        error,
       });
     }
   }
