@@ -43,7 +43,7 @@ export default function Producer() {
             宮崎の生産者とともに
           </h2>
           <p className="mt-6 max-w-xl text-sm leading-loose text-foreground/60">
-            HEBESUがお届けするへべすは、宮崎県で大切に育てられたものです。
+            HEBERESTがお届けするへべすは、宮崎県で大切に育てられたものです。
           </p>
           <p className="mt-6 max-w-xl text-sm leading-loose text-foreground/60">
             収穫時期や品質を見極め、その時期に最も良い状態のへべすを厳選しています。
@@ -56,7 +56,7 @@ export default function Producer() {
             「おいしいへべすを、もっと多くの人に知ってほしい。」
           </p>
           <p className="mt-4 max-w-xl text-sm leading-loose text-foreground/60">
-            その想いを大切に、HEBESUは宮崎のへべすの魅力を全国へ届けていきます。
+            その想いを大切に、HEBERESTは宮崎のへべすの魅力を全国へ届けていきます。
           </p>
         </div>
       </div>
