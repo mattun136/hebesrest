@@ -36,8 +36,16 @@ export default function Footer() {
         </nav>
 
         <div className="text-sm leading-loose">
-          <p>特定商取引法に基づく表記</p>
-          <p>プライバシーポリシー</p>
+          <p>
+            <a href="/legal/tokushoho" className="hover:text-white">
+              特定商取引法に基づく表記
+            </a>
+          </p>
+          <p>
+            <a href="/legal/privacy" className="hover:text-white">
+              プライバシーポリシー
+            </a>
+          </p>
           <p className="mt-4 text-white/40">
             &copy; {new Date().getFullYear()} HEBEREST. All rights reserved.
           </p>

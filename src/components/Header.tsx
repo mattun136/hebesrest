@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 const navLinks = [
-  { href: "#story", label: "ブランドストーリー" },
-  { href: "#features", label: "特徴" },
-  { href: "#producer", label: "生産者" },
-  { href: "#products", label: "商品一覧" },
-  { href: "#voices", label: "お客様の声" },
-  { href: "#faq", label: "よくある質問" },
+  { href: "/#story", label: "ブランドストーリー" },
+  { href: "/#features", label: "特徴" },
+  { href: "/#producer", label: "生産者" },
+  { href: "/#products", label: "商品一覧" },
+  { href: "/#voices", label: "お客様の声" },
+  { href: "/#faq", label: "よくある質問" },
 ];
 
 export default function Header() {
@@ -37,12 +38,12 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <a
-            href="#products"
+          <Link
+            href="/#products"
             className="hidden rounded-full bg-brand-green-dark px-5 py-2 text-sm text-white transition-colors hover:bg-brand-green sm:inline-block"
           >
             購入する
-          </a>
+          </Link>
           <button
             type="button"
             aria-label="メニューを開く"
@@ -74,13 +75,13 @@ export default function Header() {
               </li>
             ))}
             <li>
-              <a
-                href="#products"
+              <Link
+                href="/#products"
                 onClick={() => setOpen(false)}
                 className="mt-1 inline-block rounded-full bg-brand-green-dark px-5 py-2 text-sm text-white"
               >
                 購入する
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
