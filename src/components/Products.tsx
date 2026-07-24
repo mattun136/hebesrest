@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { PRODUCT_LIST } from "@/lib/products";
 import productJuice from "../../public/images/products/product-juice.jpg";
 import productJuice2 from "../../public/images/products/product-juice2.jpg";
@@ -88,13 +89,19 @@ export default function Products() {
                 <span className="text-sm font-medium text-brand-green-dark">
                   {formatPriceLabel(p.unitPriceJPY)}
                 </span>
+                <Link
+                  href={`/order/${p.id}`}
+                  className="inline-flex w-full items-center justify-center rounded-full bg-brand-green-dark px-4 py-2 text-xs text-white transition-colors hover:bg-brand-green"
+                >
+                  購入する
+                </Link>
                 <a
                   href={p.mercariHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center rounded-full bg-brand-green-dark px-4 py-2 text-xs text-white transition-colors hover:bg-brand-green"
+                  className="text-center text-[11px] text-foreground/40 underline"
                 >
-                  購入する
+                  メルカリShopsでも購入いただけます
                 </a>
               </div>
             </div>
