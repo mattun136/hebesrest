@@ -32,7 +32,7 @@ export const orderFormSchema = z
       .min(1, "番地・建物名を入力してください")
       .max(120),
 
-    shippingSameAsCustomer: z.coerce.boolean(),
+    shippingSameAsCustomer: z.boolean(),
     shippingName: z.string().trim().max(60).optional(),
     shippingPhone: z.string().trim().regex(phoneRegex).optional().or(z.literal("")),
     shippingPostalCode: z
@@ -48,16 +48,16 @@ export const orderFormSchema = z
     shippingDesiredTimeSlot: z.string().trim().max(20).optional(),
     shippingNote: z.string().trim().max(300).optional(),
 
-    giftNoshi: z.coerce.boolean(),
+    giftNoshi: z.boolean(),
     giftNameEntry: z.string().trim().max(20).optional(),
 
-    consentPrivacy: z.coerce
+    consentPrivacy: z
       .boolean()
       .refine((v) => v === true, { message: "プライバシーポリシーへの同意が必要です" }),
-    consentOrderContent: z.coerce
+    consentOrderContent: z
       .boolean()
       .refine((v) => v === true, { message: "注文内容への同意が必要です" }),
-    consentCancellationPolicy: z.coerce
+    consentCancellationPolicy: z
       .boolean()
       .refine((v) => v === true, {
         message: "キャンセル・返品条件への同意が必要です",
