@@ -49,7 +49,12 @@ export const orderFormSchema = z
     shippingNote: z.string().trim().max(300).optional(),
 
     giftNoshi: z.boolean(),
-    giftNameEntry: z.string().trim().max(20).optional(),
+    giftNameEntry: z
+      .string()
+      .trim()
+      .max(20)
+      .optional()
+      .transform((value) => value?.replace(/<[^>]*>/g, "")),
 
     consentPrivacy: z
       .boolean()

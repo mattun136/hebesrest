@@ -6,6 +6,7 @@ import { z } from "zod";
 import type { Product } from "@/lib/products";
 import { orderFormSchema } from "@/lib/orders/schema";
 import { priceOrder } from "@/lib/orders/pricing";
+import { parseOrderFormRaw } from "@/lib/orders/parse-form-data";
 import { submitOrder } from "./actions";
 import { initialSubmitOrderState } from "./order-form-state";
 
@@ -102,15 +103,7 @@ export function OrderForm({
   function handleProceedToConfirm() {
     if (!formRef.current) return;
     const formData = new FormData(formRef.current);
-    const raw = {
-      ...Object.fromEntries(formData),
-      productId: product.id,
-      shippingSameAsCustomer: formData.get("shippingSameAsCustomer") === "on",
-      giftNoshi: formData.get("giftNoshi") === "on",
-      consentPrivacy: formData.get("consentPrivacy") === "on",
-      consentOrderContent: formData.get("consentOrderContent") === "on",
-      consentCancellationPolicy: formData.get("consentCancellationPolicy") === "on",
-    };
+    const raw = parseOrderFormRaw(formData, product.id);
 
     const parsed = orderFormSchema.safeParse(raw);
     if (!parsed.success) {

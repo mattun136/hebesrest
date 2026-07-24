@@ -1,7 +1,7 @@
 import type { Order } from "@/lib/orders/types";
 
 export interface OrderStore {
-  saveOrder(order: Order): Promise<void>;
+  saveOrder(order: Order): Promise<{ orderId: string; duplicate: boolean }>;
 }
 
 /**
@@ -22,7 +22,7 @@ interface AppsScriptResponseBody {
  * 中身のみを変更し、OrderStoreインターフェースと呼び出し側は変更しない。
  */
 class AppsScriptSheetStore implements OrderStore {
-  async saveOrder(order: Order): Promise<void> {
+  async saveOrder(order: Order): Promise<{ orderId: string; duplicate: boolean }> {
     const url = process.env.SHEETS_WEBAPP_URL;
     const token = process.env.SHEETS_WEBAPP_TOKEN;
 
@@ -69,6 +69,11 @@ class AppsScriptSheetStore implements OrderStore {
       });
       throw new Error("注文の保存に失敗しました");
     }
+
+    return {
+      orderId: json.orderId ?? order.orderId,
+      duplicate: json.duplicate === true,
+    };
   }
 }
 

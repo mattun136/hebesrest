@@ -10,6 +10,7 @@ import { orderFormSchema } from "@/lib/orders/schema";
 import { buildOrder } from "@/lib/orders/order";
 import { orderStore } from "@/lib/orders/store";
 import { orderNotifier } from "@/lib/orders/notify";
+import { parseOrderFormRaw } from "@/lib/orders/parse-form-data";
 import type { SubmitOrderState } from "./order-form-state";
 
 export async function submitOrder(
@@ -45,15 +46,7 @@ export async function submitOrder(
     return { status: "error", message: "商品情報が正しくありません。" };
   }
 
-  const raw = {
-    ...Object.fromEntries(formData),
-    productId,
-    shippingSameAsCustomer: formData.get("shippingSameAsCustomer") === "on",
-    giftNoshi: formData.get("giftNoshi") === "on",
-    consentPrivacy: formData.get("consentPrivacy") === "on",
-    consentOrderContent: formData.get("consentOrderContent") === "on",
-    consentCancellationPolicy: formData.get("consentCancellationPolicy") === "on",
-  };
+  const raw = parseOrderFormRaw(formData, productId);
 
   const parsed = orderFormSchema.safeParse(raw);
   if (!parsed.success) {
@@ -66,8 +59,9 @@ export async function submitOrder(
 
   const order = buildOrder(parsed.data);
 
+  let saveResult: { orderId: string; duplicate: boolean };
   try {
-    await orderStore.saveOrder(order);
+    saveResult = await orderStore.saveOrder(order);
   } catch {
     console.error("[orders] saveOrder failed", { orderId: order.orderId });
     return {
@@ -76,11 +70,13 @@ export async function submitOrder(
     };
   }
 
-  try {
-    await orderNotifier.notifyOrder(order);
-  } catch {
-    console.error("[orders] notifyOrder failed", { orderId: order.orderId });
+  if (!saveResult.duplicate) {
+    try {
+      await orderNotifier.notifyOrder(order);
+    } catch {
+      console.error("[orders] notifyOrder failed", { orderId: order.orderId });
+    }
   }
 
-  redirect(`/order/complete?orderId=${encodeURIComponent(order.orderId)}`);
+  redirect(`/order/complete?orderId=${encodeURIComponent(saveResult.orderId)}`);
 }
