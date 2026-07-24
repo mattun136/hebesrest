@@ -58,7 +58,7 @@ src/
 - 対象スプレッドシートにApps Scriptを紐付け、`doPost(e)`が注文JSONを受け取りシートへ1行追加する
 - 認証はGoogleアカウントACLではなく**共有シークレット方式**：環境変数`SHEETS_WEBAPP_URL`（デプロイ後のWeb App URL）と`SHEETS_WEBAPP_TOKEN`（共有シークレット）をVercelに設定し、Apps Script側は同じトークンをScript Propertiesに保持して照合する。Web App自体は「アクセス:全員」で公開する必要があるため、このトークンが実質的な認証境界になる
 - `lib/orders/store.ts`は`saveOrder(order: Order): Promise<void>`という単一インターフェースにする。中身がApps ScriptへのfetchでもMaruhe OS APIへのfetchでも、呼び出し側（Server Action）は無変更で済む
-- **冗長化**：Sheets保存が失敗してもVercelのサーバーログに注文JSON全体を出力し、データロストを防ぐ（個人情報を含むログの保持期間・アクセス制限は運用ルールとして別途整理が必要な未確定事項）
+- **失敗時の扱い**：Sheets保存が失敗した場合、`saveOrder`は例外を投げてServer Action側に伝播させる。Server Actionはこの場合`/order/complete`へ遷移させず、「送信に失敗しました。時間をおいて再度お試しください」という一般文言を返す。冪等キーにより再送信しても二重保存にはならない。サーバーログには氏名・住所・電話番号などの個人情報を含めず、注文ID・商品ID・数量・金額のみを出力する（7章のPII方針と一貫させる）。実質的な冗長性は9章のメール通知（Sheets保存成功後に送信、管理者の受信箱にも記録が残る）が担う
 - **実装前にユーザー側で必要な手動準備**（コードからは自動化できない）：
   1. 新規Googleスプレッドシートを作成
   2. 拡張機能 > Apps Script からスクリプトエディタを開き、実装計画で用意するコード一式を貼り付け
@@ -115,7 +115,7 @@ src/
 | レート制限 | `@vercel/firewall`の`checkRateLimit`。Server Action内にはRequestオブジェクトがないため、`next/headers`から取得できる情報を使って呼び出す方法を実装時に確定する |
 | サーバー側バリデーション | Zodスキーマで全項目を再検証。金額は商品ID・数量からサーバーが必ず再計算し、フォームの表示金額は信用しない |
 | 冪等性 | クライアント生成UUIDをhidden fieldで送り、Server Action側で同一キーの二重作成を防止。送信ボタンは`useActionState`の`pending`で無効化 |
-| ログのPII配慮 | エラーログ・保存失敗時の冗長ログに氏名・住所・電話番号を出力しない方針を徹底（2章の冗長化ログも含め、保存期間・アクセス制限は運用ルールとして別途整理が必要） |
+| ログのPII配慮 | エラーログ（2章のSheets保存失敗時を含む）に氏名・住所・電話番号を出力しない。出力してよいのは注文ID・商品ID・数量・金額のみ |
 | 環境変数 | `SHEETS_WEBAPP_URL` / `SHEETS_WEBAPP_TOKEN` / `RESEND_FROM_EMAIL` / `ORDER_NOTIFY_TO` は`lib/orders/`以外から`process.env`に直接アクセスしない |
 
 ---
