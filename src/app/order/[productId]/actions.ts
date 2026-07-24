@@ -76,7 +76,11 @@ export async function submitOrder(
     };
   }
 
-  await orderNotifier.notifyOrder(order);
+  try {
+    await orderNotifier.notifyOrder(order);
+  } catch {
+    console.error("[orders] notifyOrder failed", { orderId: order.orderId });
+  }
 
   redirect(`/order/complete?orderId=${encodeURIComponent(order.orderId)}`);
 }
