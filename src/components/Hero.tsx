@@ -27,14 +27,16 @@ export default function Hero() {
 
       <div className="relative mx-auto flex max-w-6xl flex-col items-center px-6 py-24 text-center sm:px-8">
         <span className="mb-6 text-xs tracking-[0.4em] text-white/90">
-          MIYAZAKI HEBESU
+          MIYAZAKI HEBEREST
         </span>
 
         <h1 className="font-serif text-4xl font-medium leading-tight tracking-wide text-white drop-shadow-sm sm:text-6xl md:text-7xl">
-          へべすの価値を、
-          <br />
-          未来へ。
+          へべすでひとやすみ。
         </h1>
+
+        <p className="mt-4 text-xs tracking-[0.3em] text-white/70">
+          — へべすの価値を、未来へ。—
+        </p>
 
         <p className="mt-8 max-w-xl text-base leading-loose text-white/85 sm:text-lg">
           宮崎県が育んだ香酸柑橘「へべす」。
