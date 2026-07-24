@@ -13,9 +13,12 @@ export default function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col gap-10 sm:flex-row sm:justify-between">
         <div>
           <a href="#top" className="font-serif text-lg tracking-[0.2em] text-white">
-            HEBESU
+            HEBEREST
           </a>
           <p className="mt-4 max-w-xs text-sm leading-loose">
+            へべすでひとやすみ。
+          </p>
+          <p className="mt-2 max-w-xs text-xs leading-loose text-white/50">
             宮崎県産へべすの価値を、生産者とともに未来へつなぐブランドです。
           </p>
         </div>
@@ -36,7 +39,7 @@ export default function Footer() {
           <p>特定商取引法に基づく表記</p>
           <p>プライバシーポリシー</p>
           <p className="mt-4 text-white/40">
-            &copy; {new Date().getFullYear()} HEBESU. All rights reserved.
+            &copy; {new Date().getFullYear()} HEBEREST. All rights reserved.
           </p>
         </div>
       </div>
