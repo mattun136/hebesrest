@@ -21,7 +21,7 @@ export default function Header() {
           href="#top"
           className="font-serif text-lg tracking-[0.2em] text-brand-green-dark"
         >
-          HEBESU
+          HEBEREST
         </a>
 
         <nav className="hidden items-center gap-8 lg:flex">
